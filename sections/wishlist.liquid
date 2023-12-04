@@ -1,0 +1,52 @@
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<section>
+    <div class="page-width">
+        <div class="wishlist-content">
+        <h1 class="main-page-title page-title h0">
+            WishList
+        </h1>
+        <div class="wish-list-product-btn hidden">
+            <button class="remove_all_from_wishlist button button--full-width button--secondary">
+              <span>Clear All</span>
+              <div class="loading-overlay__spinner hidden">
+                <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </button>
+            <button class="add_all_to_cart button button--full-width button--primary">
+              <span>Add All To Cart</span>
+              <div class="loading-overlay__spinner hidden">
+                <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+              </div>
+            </button> 
+        </div>
+        <div class="wishlist-main-products">
+            <ul class="wishlist-product-grid grid product-grid contains-card contains-card--product contains-card--standard grid--4-col-desktop grid--2-col-tablet-down">
+                
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "WishList",
+    "settings": [
+],
+"presets": [
+      {
+        "name": "WishList",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+
+

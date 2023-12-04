@@ -1,0 +1,217 @@
+{%- render 'cart-drawer', section: section, block: block -%}
+
+<style>
+{% if section.settings.recommendation_slide_effect == 'creative_horizontal' or section.settings.recommendation_slide_effect == 'none' %} 
+.related-product-slide {
+    position: relative;
+    overflow: hidden;
+} 
+{% endif %}
+.shipping-progress-bar {
+  background-color: {{section.settings.progress_color}};
+}
+.shipping-progress-fill {
+  background-color: {{section.settings.progress_color_fill}};
+}
+.shipping-mailstone:after{
+  background-color: {{section.settings.progress_dot}};
+}
+</style>
+
+<script>
+function initSwiper() {
+    var Swipes = new Swiper('.swiper-container', {
+    loop: true,
+    slidesPerView: 1,
+    allowTouchMove: true,
+    {% if section.settings.recommendation_slide_effect == 'cube' %}  
+      effect: "cube",
+      grabCursor: true,
+      cubeEffect: {
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.95,
+      },
+    {% elsif section.settings.recommendation_slide_effect == 'creative_vertical'%}
+      effect: "creative",
+      grabCursor: true,
+      creativeEffect: {
+        prev: {
+          shadow: true,
+          translate: [0, 0, -800],
+          rotate: [180, 0, 0],
+        },
+        next: {
+          shadow: true,
+          translate: [0, 0, -800],
+          rotate: [-180, 0, 0],
+        },
+      },
+    {% elsif section.settings.recommendation_slide_effect == 'creative_horizontal'%} 
+      effect: "creative",
+      grabCursor: true,
+      creativeEffect: {
+        prev: {
+          shadow: true,
+          translate: ["-120%", 0, -500],
+        },
+        next: {
+          shadow: true,
+          translate: ["120%", 0, -500],
+        },
+      },
+    {% elsif section.settings.recommendation_slide_effect == 'none' %}
+    {% endif %}
+    {% if section.settings.recommendation_dots %}
+      pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+      },
+    {% endif %}
+    {% if section.settings.recommendation_arrows %}
+      navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+          clickable: true,
+      },
+    {% endif %}
+    {% if section.settings.recommendation_autoplay %}
+      autoplay: {
+        delay: 3000,
+      },
+    {% endif %}
+  });
+}
+</script>
+{% schema %}
+  {
+    "name": "Cart drawer",
+    "settings": [
+          {
+            "type": "header",
+            "content": "Progress bar"
+          },
+          {
+            "type": "text",
+            "id": "maxlenth",
+            "label": "Progress bar max value",
+            "info": "For example: $100"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_reword_text_line",
+            "label": "Enable reword text line under progress bar",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "progress_color",
+            "label": "Progress bar color",
+            "default": "#f5f5f5"
+          },
+          {
+            "type": "color",
+            "id": "progress_color_fill",
+            "label": "Progress bar fill color",
+            "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "progress_dot",
+            "label": "Progress bar dot color",
+            "default": "#121212"
+          },
+          {
+            "type": "header",
+            "content": "Recommendation product"
+          },
+          {
+            "type": "text",
+            "id": "rec_heading",
+            "label": "Recommendation title",
+            "default": "You may also like"
+          },
+          {
+            "type": "number",
+            "id": "recommendation_pr_number",
+            "label": "Recommendation products limit",
+            "default": 5
+          },
+          {
+            "type": "select",
+            "id": "recommendation_slide_effect",
+            "label": "Recommendation slide effect",
+            "options": [
+              {
+                "value": "cube",
+                "label": "Cube"
+              },
+              {
+                "value": "creative_vertical",
+                "label": "Creative Vertical"
+              },
+              {
+                "value": "creative_horizontal",
+                "label": "Creative Horizontal"
+              },
+              {
+                "value": "none",
+                "label": "none"
+              }
+            ],
+            "default": "cube"
+          },
+          {
+            "type": "checkbox",
+            "id": "recommendation_dots",
+            "label": "Show slide dots",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "recommendation_arrows",
+            "label": "Show slide arrows",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "recommendation_autoplay",
+            "label": "Autoplay Slide",
+            "info": "Work only when slide effect is none",
+            "default": true
+          }
+],
+"blocks": [
+    {
+    "type": "milestone",
+    "name": "Milestone",
+        "settings": [
+          {
+            "type": "text",
+            "id": "milestone",
+            "label": "Milestone",
+            "info": "For example: $90 and minimum 20% distance required from each milestone"
+          },
+          {
+            "type": "text",
+            "id": "milestone_text",
+            "label": "Milestone Text",
+            "info": "For example: Free gift"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Select product as milestone reword"
+          }
+        ]
+    }
+  ],
+"presets": [
+      {
+        "name": "cart drawer",
+        "category": "cart drawer"
+      }
+    ]
+  }
+{% endschema %}
